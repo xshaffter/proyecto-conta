@@ -7,6 +7,8 @@ import main.Global
 
 
 class TextField(imagen: BufferedImage?, private var maxLength: Int = -1, x: Int, y: Int) : GComponent(imagen, x, y) {
+
+
     var text = ""
     var hint = ""
     var font: Font? = null

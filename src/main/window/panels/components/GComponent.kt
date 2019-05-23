@@ -5,7 +5,7 @@ import java.awt.*
 import java.awt.image.BufferedImage
 import main.window.GraphicsAdapter
 
-abstract class GComponent protected constructor(protected val imagenDefault: BufferedImage?, protected var x: Int, protected var y: Int) {
+abstract class GComponent protected constructor(protected val imagenDefault: BufferedImage?, var x: Int, protected var y: Int) {
 
     private var ArrayList<GComponent>.isFocused: Boolean
         get() = true
@@ -17,7 +17,7 @@ abstract class GComponent protected constructor(protected val imagenDefault: Buf
 
     private var collisionBox: Rectangle? = null
 
-    protected var onAction: () -> Unit = fun() {}
+    public var onAction: () -> Unit = fun() {}
     protected var frame = 0.0
     var width: Int = 0
         private set
@@ -60,4 +60,5 @@ abstract class GComponent protected constructor(protected val imagenDefault: Buf
         this.height = height
         collisionBox = Rectangle(x, y, width, height)
     }
+
 }

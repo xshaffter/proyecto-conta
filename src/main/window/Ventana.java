@@ -2,14 +2,16 @@ package main.window;
 
 import java.awt.*;
 import javax.swing.*;
+import kotlin.Unit;
 import main.window.panels.Lienzo;
 import main.window.panels.components.TextField;
+
+import static main.Global.JUEGO;
+
 
 public class Ventana extends JFrame {
 
     private Lienzo lienzo;
-    private int aps = 0;
-    private int fps = 0;
     private boolean enFuncionamiento = true;
 
     public Ventana(final int ancho, final int alto) {
@@ -18,23 +20,30 @@ public class Ventana extends JFrame {
 
         this.setLayout(mainLayout);
 
-        this.setPreferredSize(new Dimension(ancho, alto));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.pack();
-        this.setLocationRelativeTo(null);
 
-        TextField txtRespuesta = new TextField(null, 15, 0, 0);
+        TextField txtRespuesta = new TextField(null, 1, 0, alto - 128);
         txtRespuesta.setHint("");
+        txtRespuesta.setFocused(true);
         lienzo.add(txtRespuesta);
 
+        txtRespuesta.setOnAction(() -> {
+            char letra = txtRespuesta.getText().toUpperCase().charAt(0);
+            if (JUEGO.getLetras().contains(letra)) {
+                JUEGO.getLetras().set(JUEGO.getLetras().indexOf(letra), '_');
+            }
+            return Unit.INSTANCE;
+        });
+        this.requestFocus();
 
         this.add(lienzo, "North");
+        this.pack();
+        txtRespuesta.setX((getWidth() / 2) - (txtRespuesta.getWidth() / 2));
+        this.setLocationRelativeTo(null);
     }
 
     public void start() {
         Thread dibujo = new Thread(() -> {
-            int actualizacionesAcumuladas = 0;
-            int framesAcumulados = 0;
 
             final int NS_POR_SEGUNDO = 1000000000;
             final int APS_OBJETIVO = 60;
@@ -56,19 +65,13 @@ public class Ventana extends JFrame {
 
                 while (delta >= 1) {
                     actualizar();
-                    actualizacionesAcumuladas++;
                     delta--;
                 }
 
                 lienzo.dibujar();
-                framesAcumulados++;
 
                 if (System.nanoTime() - referenciaContador > NS_POR_SEGUNDO) {
 
-                    aps = actualizacionesAcumuladas;
-                    fps = framesAcumulados;
-                    actualizacionesAcumuladas = 0;
-                    framesAcumulados = 0;
                     referenciaContador = System.nanoTime();
                 }
             }
