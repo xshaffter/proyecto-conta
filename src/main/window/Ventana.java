@@ -3,8 +3,11 @@ package main.window;
 import java.awt.*;
 import javax.swing.*;
 import kotlin.Unit;
+import main.Global;
 import main.window.panels.Lienzo;
+import main.window.panels.components.BottomMenu;
 import main.window.panels.components.TextField;
+import main.window.panels.components.layouts.GBorderLayout;
 
 import static main.Global.JUEGO;
 
@@ -23,28 +26,29 @@ public class Ventana extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         TextField txtRespuesta = new TextField(null, 1, 0, alto - 128);
-        txtRespuesta.setHint("");
-        txtRespuesta.setFocused(true);
-        lienzo.add(txtRespuesta);
+        GBorderLayout borderLayout = new GBorderLayout(0, 0, Global.window_width, Global.window_height);
+        BottomMenu menu = new BottomMenu(Global.window_width, 128);
 
         txtRespuesta.setOnAction(() -> {
-            char letra = txtRespuesta.getText().toUpperCase().charAt(0);
-            if (JUEGO.getLetras().contains(letra)) {
-                JUEGO.getLetras().set(JUEGO.getLetras().indexOf(letra), '_');
+            if (!txtRespuesta.getText().isEmpty()) {
+                char letra = txtRespuesta.getText().toUpperCase().charAt(0);
+                if (JUEGO.getLetras().contains(letra)) {
+                    JUEGO.getLetras().set(JUEGO.getLetras().indexOf(letra), '_');
+                }
             }
             return Unit.INSTANCE;
         });
-        this.requestFocus();
-
-        this.add(lienzo, "North");
+        this.add(lienzo, BorderLayout.CENTER);
+        borderLayout.setBottom(menu);
+        menu.add(txtRespuesta);
+        lienzo.add(borderLayout);
         this.pack();
-        txtRespuesta.setX((getWidth() / 2) - (txtRespuesta.getWidth() / 2));
         this.setLocationRelativeTo(null);
+        txtRespuesta.setFocused(true);
     }
 
     public void start() {
         Thread dibujo = new Thread(() -> {
-
             final int NS_POR_SEGUNDO = 1000000000;
             final int APS_OBJETIVO = 60;
             final double NS_POR_ACTUALIZACION = NS_POR_SEGUNDO / APS_OBJETIVO;

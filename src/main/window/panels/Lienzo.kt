@@ -15,7 +15,6 @@ class Lienzo(private val ancho: Int, private val alto: Int) : Canvas() {
 
         this.addMouseListener(Global.MOUSE)
         this.addKeyListener(Global.KEYBOARD)
-        this.requestFocus()
     }
 
     fun add(component: GComponent) {
