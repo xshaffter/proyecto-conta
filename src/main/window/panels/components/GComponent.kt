@@ -7,6 +7,10 @@ import main.window.GraphicsAdapter
 
 abstract class GComponent protected constructor(protected val imagenDefault: BufferedImage?, var x: Int, protected var y: Int) {
 
+    constructor(x: Int, y: Int, width: Int, heigh: Int) : this(null, x, y) {
+        updateSize(width, height)
+    }
+
     private var ArrayList<GComponent>.isFocused: Boolean
         get() = true
         set(value) {
@@ -17,7 +21,7 @@ abstract class GComponent protected constructor(protected val imagenDefault: Buf
 
     private var collisionBox: Rectangle? = null
 
-    public var onAction: () -> Unit = fun() {}
+    var onAction: () -> Unit = fun() {}
     protected var frame = 0.0
     var width: Int = 0
         private set
@@ -45,7 +49,7 @@ abstract class GComponent protected constructor(protected val imagenDefault: Buf
         }
     }
 
-    fun actualizarBase() {
+    open fun actualizarBase() {
         if (Global.MOUSE.isHover(collisionBox) && Global.MOUSE.isClicked) {
             Global.VENTANA.lienzo.components.isFocused = false
             isFocused = true

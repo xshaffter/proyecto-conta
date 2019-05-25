@@ -18,7 +18,6 @@ class Juego {
                 val xMastil = xBase + largoBase / 2 - grosor / 2
                 val xBasesuperior = xMastil + grosor
                 val xHorca = xBasesuperior + largoBaseSuperior - grosor
-                    
                 g.fillRect(Color.BLACK, xBase, altoPantalla - altoMenu - grosor, largoBase, grosor)
                 g.fillRect(Color.BLACK, xMastil, altoPantalla - altoMenu - grosor - altoMastil,
                            grosor, altoMastil)
@@ -26,7 +25,7 @@ class Juego {
                            grosor)
                 g.fillRect(Color.BLACK, xHorca, altoPantalla - altoMenu - altoMastil, grosor, largoHorca)
             },
-            {
+            { g ->
                 //cabeza
 
             }
