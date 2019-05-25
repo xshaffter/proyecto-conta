@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8dd954a-db70-4305-99e8-ac1c89f4d246" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/game/Juego.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/window/panels/Lienzo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/Global.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/Global.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/Ventana.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/Ventana.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/Lienzo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/Lienzo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/GComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/GComponent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/TextField$defaultOnAction$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/TextField$defaultOnAction$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/TextField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProyectoConta/main/window/panels/components/TextField.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Global.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Global.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window/Ventana.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window/Ventana.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window/panels/Lienzo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window/panels/components/GComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window/panels/components/GComponent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/window/panels/components/TextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/window/panels/components/TextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/game/Juego.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/game/Juego.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -114,8 +100,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/game/Juego.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+            <state relative-caret-position="275">
+              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding>
                 <element signature="e#19#75#0" expanded="true" />
               </folding>
@@ -310,7 +296,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32798573" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23351158" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23351158" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5418895" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -559,8 +545,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/game/Juego.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        <state relative-caret-position="275">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
           <folding>
             <element signature="e#19#75#0" expanded="true" />
           </folding>
