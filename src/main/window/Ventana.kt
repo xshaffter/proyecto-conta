@@ -6,6 +6,7 @@ import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Scene
 import javafx.scene.control.Label
+import javafx.scene.control.TextField
 import javafx.scene.layout.*
 import javafx.scene.paint.Color
 import javafx.scene.text.TextAlignment
@@ -25,7 +26,7 @@ class Ventana(ancho: Int, alto: Int) : Stage() {
     init {
         val mainLayout = BorderPane()
         val scene = Scene(mainLayout, ancho.toDouble(), alto.toDouble())
-        val txtRespuesta = JFXTextField()
+        val txtRespuesta = TextField()
 
         val menu = BorderPane()
         val header = FlowPane()
