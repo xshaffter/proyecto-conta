@@ -1,6 +1,5 @@
 package main.window
 
-import com.jfoenix.controls.JFXTextField
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
@@ -12,16 +11,17 @@ import javafx.scene.paint.Color
 import javafx.scene.text.TextAlignment
 import javafx.stage.Stage
 import main.Global
-import javax.swing.GroupLayout
 import main.Global.JUEGO as juego
 
 
 class Ventana(ancho: Int, alto: Int) : Stage() {
-    var letras: FlowPane
-    var extras: FlowPane
-    var ahorcado: Label
-    var hint: Label
-    var palabra: Label
+    private var letras: FlowPane
+    private var extras: FlowPane
+    private var ahorcado: Label
+    private var hint: Label
+    private var palabra: Label
+    var txtTimer: Label
+        private set
 
     init {
         val mainLayout = BorderPane()
@@ -31,47 +31,50 @@ class Ventana(ancho: Int, alto: Int) : Stage() {
         val menu = BorderPane()
         val header = FlowPane()
         val menuCenter = GridPane()
-        val centerCenter = GridPane()
         val palabraContainer = FlowPane()
         val ahorcadoContainer = StackPane()
-        val hintContainer = FlowPane()
+        val center = BorderPane()
+
+        center.border = Global.BORDER
 
         letras = FlowPane()
         extras = FlowPane()
-
+        txtTimer = Label("00:00")
         ahorcado = Label()
         hint = Label()
         palabra = Label()
 
-        val center = BorderPane()
+        palabra.font = Global.FONT
 
+        txtTimer.font = Global.FONT
+        txtTimer.textFill = Color.WHITE
         txtRespuesta.background = Background(BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY))
         txtRespuesta.textProperty().addListener { _, _, _ ->
             if (txtRespuesta.text.length > 1) txtRespuesta.text = "${txtRespuesta.text[0]}"
         }
 
+        txtRespuesta.alignment = Pos.CENTER
+        txtTimer.alignment = Pos.CENTER_RIGHT
+
         header.alignment = Pos.CENTER
-        header.children.add(txtRespuesta)
+        header.children += txtTimer
+        header.children += txtRespuesta
         menu.top = header
 
 
         letras.border = Global.BORDER
-        letras.prefWidthProperty().bind(menuCenter.widthProperty().multiply(3).divide(5))
+        letras.prefWidthProperty().bind(menu.widthProperty())
         letras.prefHeightProperty().bind(menuCenter.heightProperty())
+        letras.alignment = Pos.TOP_CENTER
         letras.children.addAll(getLetras())
         letras.hgap = Global.FONT.size
 
-        extras.border = Global.BORDER
-        extras.prefWidthProperty().bind(menuCenter.widthProperty().multiply(2).divide(5))
-        extras.prefHeightProperty().bind(menuCenter.heightProperty())
-
-        menuCenter.add(extras, 0, 0)
-        menuCenter.add(letras, 1, 0)
+        menuCenter.add(letras, 0, 0)
         menu.center = menuCenter
 
         menu.background = Background(BackgroundFill(Color.valueOf("#333333"), CornerRadii.EMPTY, Insets.EMPTY))
         menu.prefHeightProperty().bind(heightProperty().multiply(2).divide(5))
-        mainLayout.bottom = menu
+        menu.prefWidthProperty().bind(widthProperty())
 
         hint.text = juego.palabra.hint
         hint.textAlignment = TextAlignment.CENTER
@@ -82,16 +85,20 @@ class Ventana(ancho: Int, alto: Int) : Stage() {
         palabra.textAlignment = TextAlignment.CENTER
         palabra.alignment = Pos.CENTER_RIGHT
         palabra.isWrapText = true
-        palabra.prefWidthProperty().bind(center.widthProperty().divide(2))
 
-        ahorcadoContainer.prefWidthProperty().bind(center.widthProperty().subtract(palabraContainer.widthProperty()))
+        palabraContainer.alignment = Pos.CENTER
+        palabraContainer.children += palabra
+        palabraContainer.vgap = 300.0
+        palabraContainer.prefWidthProperty().bind(center.widthProperty())
 
-        centerCenter.add(ahorcadoContainer, 0, 0)
-        centerCenter.add(palabra, 1, 0)
-        center.center = centerCenter
+        center.center = ahorcadoContainer
 
-        center.prefHeightProperty().bind(heightProperty().multiply(3).divide(5))
+        center.bottom = palabraContainer
+
+        center.prefWidthProperty().bind(widthProperty())
+        center.prefHeightProperty().bind(heightProperty().multiply(2).divide(5))
         mainLayout.center = center
+        mainLayout.bottom = menu
 
         txtRespuesta.onAction = EventHandler {
             if (txtRespuesta.text.isNotEmpty()) {
@@ -107,7 +114,10 @@ class Ventana(ancho: Int, alto: Int) : Stage() {
                 palabra.text = juego.palabraDisplay
             }
         }
-
+        if (!Global.DEBUG) {
+            fullScreenExitHint = ""
+            isFullScreen = true
+        }
         setScene(scene)
     }
 
@@ -125,6 +135,10 @@ class Ventana(ancho: Int, alto: Int) : Stage() {
     fun reset() {
         hint.text = juego.palabra.hint
         palabra.text = juego.palabraDisplay
+    }
+
+    fun setTime(time: String) {
+        txtTimer.text = time
     }
 
 }

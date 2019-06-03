@@ -1,16 +1,21 @@
 package main.game
 
+import javafx.animation.Animation
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import javafx.event.EventHandler
+import javafx.util.Duration
 import main.Global
-import main.Global.window_height
-import main.Global.window_width
-import main.window.Ventana
-import java.awt.Color
-import java.lang.IllegalArgumentException
-import java.lang.NumberFormatException
 import java.util.*
-import kotlin.collections.ArrayList
 
 class Juego {
+
+    var time = 0
+        set(value) {
+            Global.VENTANA.txtTimer.text = toMSF(time)
+            field = value
+        }
+    val timer: Timeline
     val rutas: Array<String> = arrayOf(
 
     )
@@ -21,15 +26,24 @@ class Juego {
     var fallos: Int = 0
     var palabraControl: CharArray = "".toCharArray()
     var palabraDisplay = ""
+    var tiempo: Int = 120
+    var ronda = 1
+    var erroresMaximos = 6
 
     init {
         reset()
+        timer = Timeline(KeyFrame(Duration.millis(1000.0), EventHandler {
+            if (time > 0) {
+                time--
+            }
+        }))
     }
 
     fun reset() {
         letras = letrasOriginal.sorted()
         palabra = Global.rnd.next(Global.palabras)
         fallos = 0
+        erroresMaximos = if (6 - ronda > 0) 6 - ronda else 1
         palabraGuion = ""
         palabraDisplay = ""
         palabraControl = palabra.palabra.toLowerCase().toCharArray()
@@ -43,6 +57,13 @@ class Juego {
             }
         }
         Global.VENTANA?.reset()
+        if (ronda >= 2) {
+            time = /*tiempo - (15 * (ronda - 6))*/ 45
+            if (ronda == 2) {
+                timer.cycleCount = Animation.INDEFINITE
+                timer.play()
+            }
+        }
     }
 
     fun intentar(letra: Char) {
@@ -52,6 +73,16 @@ class Juego {
             palabraGuion = palabraGuion.replace(letter, "${letra.toLowerCase()} ")
         } else {
             fallos++
+        }
+        if (fallos >= erroresMaximos) {
+            //perdiste
+            Global.puntos = ronda
+            ronda = 1
+            timer.stop()
+            time = 0
+
+            reset()
+            return
         }
         var numero = ""
         for (c in palabraGuion.toCharArray()) {
@@ -67,7 +98,7 @@ class Juego {
             }
         }
         if (!palabraGuion.containsNumbers()) {
-            //"ganaste"
+            ronda++
             reset()
         }
     }
@@ -77,6 +108,20 @@ class Juego {
         letras[letras.indexOf(search)] = newValue
         this.letras = letras.toList()
     }
+}
+
+private fun doble00Fmt(value: Int): String {
+    return if (value < 10) {
+        "0$value"
+    } else {
+        value.toString()
+    }
+}
+
+private fun toMSF(time: Int): String {
+    val minutos = doble00Fmt(time / 60)
+    val segundos = doble00Fmt(time % 60)
+    return "$minutos:$segundos"
 }
 
 private fun String.containsNumbers(): Boolean {
